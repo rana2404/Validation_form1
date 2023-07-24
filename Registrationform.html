@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation</title>
+    <style>
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var email = document.forms["myForm"]["email"].value;
+            var password = document.forms["myForm"]["password"].value;
+            var firstName = document.forms["myForm"]["firstName"].value;
+            var lastName = document.forms["myForm"]["lastName"].value;
+            var middleName = document.forms["myForm"]["middleName"].value;
+            var dob = document.forms["myForm"]["dob"].value;
+            var telephone = document.forms["myForm"]["telephone"].value;
+            var postalCode = document.forms["myForm"]["postalCode"].value;
+
+            var isValid = true;
+
+            // Email validation
+            var emailPattern = /^[A-Za-z0-9._%$+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+            var emailError = document.getElementById("emailError");
+            if (email === "") {
+                emailError.innerHTML = "Email is required.";
+                isValid = false;
+            } else if (!email.match(emailPattern)) {
+                emailError.innerHTML = "Please enter a valid email address.";
+                isValid = false;
+            } else {
+                emailError.innerHTML = "";
+            }
+
+            // Password validation
+            var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_!@$#%&])\S{8,}$/;
+            var passwordError = document.getElementById("passwordError");
+            if (!password.match(passwordPattern)) {
+                passwordError.innerHTML = "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character (_!@$#%&).";
+                isValid = false;
+            } else {
+                passwordError.innerHTML = "";
+            }
+
+            // First name validation
+            var namePattern = /^[A-Z][A-Za-z]*$/;
+            var firstNameError = document.getElementById("firstNameError");
+            if (!firstName.match(namePattern)) {
+                firstNameError.innerHTML = "Please enter a valid first name starting with an first uppercase letter with no numbers.";
+                isValid = false;
+            } else {
+                firstNameError.innerHTML = "";
+            }
+
+            // Last name validation
+            var lastNameError = document.getElementById("lastNameError");
+            if (!lastName.match(namePattern)) {
+                lastNameError.innerHTML = "Please enter a valid last name starting with an first uppercase letter with no numbers.";
+                isValid = false;
+            } else {
+                lastNameError.innerHTML = "";
+            }
+
+            // Middle name validation
+            var middleNameError = document.getElementById("middleNameError");
+            if (middleName !== "" && !middleName.match(namePattern)) {
+                middleNameError.innerHTML = "Please enter a valid middle name starting with first uppercase letter with no numbers.";
+                isValid = false;
+            } else {
+                middleNameError.innerHTML = "";
+            }
+
+            // Date of Birth validation
+            var dobPattern = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/(19|20)\d{2}$/;
+            var dobError = document.getElementById("dobError");
+            if (!dob.match(dobPattern)) {
+                dobError.innerHTML = "Please enter a valid date of birth in the format DD/MM/YYYY not before year 1900.";
+                isValid = false;
+            } else {
+                dobError.innerHTML = "";
+            }
+
+            // Telephone validation
+            var telephonePattern = /^(?:\+?1[-.\s]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
+            var telephoneError = document.getElementById("telephoneError");
+            if (!telephone.match(telephonePattern)) {
+                telephoneError.innerHTML = "Please enter a valid telephone number.";
+                isValid = false;
+            } else {
+                telephoneError.innerHTML = "";
+            }
+
+            // Postal code validation
+            var postalCodePattern = /^[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d$/;
+            var postalCodeError = document.getElementById("postalCodeError");
+            if (!postalCode.match(postalCodePattern)) {
+                postalCodeError.innerHTML = "Please enter a valid postal code.";
+                isValid = false;
+            } else {
+                postalCodeError.innerHTML = "";
+            }
+
+            if (isValid) {
+                alert("Accepted!");
+            }
+
+            return isValid;
+        }
+    </script>
+</head>
+<body>
+    <form name="myForm" onsubmit="return validateForm()" method="post">
+        <h1>Registration Form</h1>
+        <label>* Email:</label>
+        <input type="text" name="email" required>
+        <span id="emailError" class="error"></span><br><br>
+
+        <label>* Password:</label>
+        <input type="password" name="password" required>
+        <span id="passwordError" class="error"></span><br><br>
+
+        <label>* First Name:</label>
+        <input type="text" name="firstName" required>
+        <span id="firstNameError" class="error"></span><br><br>
+
+        <label>Middle Name:</label>
+        <input type="text" name="middleName">
+        <span id="middleNameError" class="error"></span><br><br>
+
+        <label>*Last Name:</label>
+        <input type="text" name="lastName" required>
+        <span id="lastNameError" class="error"></span><br><br>
+
+        <label>* Date of Birth:</label>
+        <input type="text" name="dob">
+        <span id="dobError" class="error"></span><br><br>
+
+        <label>Telephone:</label>
+        <input type="text" name="telephone">
+        <span id="telephoneError" class="error"></span><br><br>
+
+        <label>* Postal Code:</label>
+        <input type="text" name="postalCode" required>
+        <span id="postalCodeError" class="error"></span><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
